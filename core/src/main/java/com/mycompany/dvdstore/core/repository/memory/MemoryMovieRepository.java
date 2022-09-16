@@ -6,7 +6,6 @@ import com.mycompany.dvdstore.core.repository.MovieRepositoryInterface;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Repository
 public class MemoryMovieRepository implements MovieRepositoryInterface {
 
     private static List<Movie> movies = new ArrayList<>();
@@ -20,5 +19,12 @@ public class MemoryMovieRepository implements MovieRepositoryInterface {
     @Override
     public List<Movie> list() {
         return movies;
+    }
+
+    @Override
+    public Movie getById(long id) {
+        return movies.stream().
+                filter(m -> m.getId() == id).
+                findFirst().get();
     }
 }
