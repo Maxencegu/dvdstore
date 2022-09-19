@@ -16,8 +16,10 @@ public class FileMovieRepository implements MovieRepositoryInterface {
 
     @Override
     public void add(Movie movie) {
+        long lastId = list().stream().map(Movie::getId).max(Long::compare).orElse(0L);
+        movie.setId(lastId + 1);
         try(FileWriter writer = new FileWriter(file,true)) {
-            writer.write(movie.getTitle() + ";" + movie.getGenre() + "\n");
+            writer.write(movie.getId() + ";" + movie.getTitle() + ";" + movie.getGenre() + ";" + movie.getDescription() + "\n");
             System.out.println("The movie " + movie.getTitle() + " has been added.");
         }
         catch (IOException e){
