@@ -15,7 +15,7 @@ public class FileMovieRepository implements MovieRepositoryInterface {
     private File file;
 
     @Override
-    public void add(Movie movie) {
+    public Movie add(Movie movie) {
         long lastId = list().stream().map(Movie::getId).max(Long::compare).orElse(0L);
         movie.setId(lastId + 1);
         try(FileWriter writer = new FileWriter(file,true)) {
@@ -25,6 +25,7 @@ public class FileMovieRepository implements MovieRepositoryInterface {
         catch (IOException e){
             e.printStackTrace();
         }
+        return movie;
     }
 
     @Override
